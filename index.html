@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tinder-Swipe</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <header>
+          <img src="./tinder-logo.webp" alt="tinder-logo" />
+        </header>
+
+        <div class="cards">
+          <article>
+            <img src="./img/chica.jpg" alt="chica" />
+            <h2>Maria<span>19 años</span></h2>
+            <div class="choice nope">NOPE</div>
+            <div class="choice like">LIKE</div>
+          </article>
+          <article>
+            <img src="./img/chica-2.jpg" alt="chica-2" />
+            <h2>Rosa<span>21 años</span></h2>
+            <div class="choice nope">NOPE</div>
+            <div class="choice like">LIKE</div>
+          </article>
+
+          <span>
+            No hay mas personas cerca de tu ubicación crack :( ....
+          </span>
+        </div>
+
+        <footer>
+          <button class="is-undo" aria-label="undo"></button>
+          <button class="is-remove is-big" aria-label="remove"></button>
+          <button class="is-star" aria-label="star"></button>
+          <button class="is-fav is-big" aria-label="fav"></button>
+          <button class="is-zap" aria-label="zap"></button>
+        </footer>
+      </section>
+    </main>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+          "Helvetica Neue", sans-serif;
+        display: grid;
+        place-content: center;
+        min-height: 100vh;
+        overflow: hidden;
+        user-select: none;
+        background: #494949;
+      }
+
+      main {
+        background: url("iphone.webp") no-repeat;
+        background-size: contain;
+        width: 328px;
+        height: 648px;
+        display: flex;
+        filter: drop-shadow(0 0 18px rgba(0, 0, 0, 0.3));
+      }
+      section {
+        background: #fff;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 32px;
+        overflow: hidden;
+        position: relative;
+        padding: 16px 6px;
+        margin: 24px;
+        gap: 24px;
+      }
+
+      header {
+        display: flex;
+        justify-content: center;
+
+        & img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      footer {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+        padding: 0 24px;
+
+        & button {
+          background: url('./tinder-icons.webp') no-repeat;
+          background-position: 0px 0px;
+          background-size: 175px;
+          height: 32px;
+          width: 32px;
+          border: 0;
+          cursor: pointer;
+          border-radius: 50%;
+          transition: scale .3s ease;
+
+          &:hover{
+            scale: 1.4;
+          }
+
+          &.is-big{
+            background-size: 250px;
+            width: 40px;
+            height: 48px;
+          }
+
+          &.is-undo{
+            background-position: -140px 0;
+          }
+          &.is-remove{
+            background-position: -155px 0;
+          }
+          &.is-fav{
+            background-position: -50px 0; 
+          }
+
+          &.is-star{
+            background-position: -70px 0;
+          }
+
+        }
+      }
+
+      .cards {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+
+        & > span {
+          display: grid;
+          place-content: center;
+          height: 100%;
+          color: #777;
+          font-size: 14px;
+          text-align: center;
+          z-index: -1;
+        }
+
+        & article {
+          background: black;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          border-radius: 8px;
+          overflow: hidden;
+          cursor: grab;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          inset: 0;
+          z-index: 2;
+          will-change: transform rotate;
+
+          &.go-left{
+            transform: translateX(-150%) rotate(-30deg) !important; 
+          }
+
+          &.go-right{
+            transform: translateX(150%) rotate(30deg) !important; 
+          }
+
+          &.go-left,&.go-right{
+            transition: transform .3s ease, rotate .3s ease;
+          }
+
+
+          &.reset{
+            transition: transform .3s ease;
+            transform:  translateX(0) !important;
+          }
+
+          & .choice {
+            color: black;
+            border: 3px solid;
+            z-index: 999;
+            position: absolute;
+            opacity: 0;
+            transition: opacity .3s ease;
+            top: 16px;
+            right: 16px;
+            padding: 4px 8px;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0,0.3);
+            width: fit-content;
+
+            &.nope {
+              border-color: #f44336;
+              color: #f44336;
+              transform: rotate(30deg);
+             
+              
+            }
+            &.like{
+              border-color: #4caf50;
+              color: #4caf50;
+              transform: rotate(-30deg);
+              left: 16px;
+              
+            }
+          }
+
+
+          & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          & h2 {
+            color: white;
+            position: absolute;
+            display: flex;
+            align-items: flex-end;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            padding: 16px;
+            z-index: 3;
+            background: linear-gradient(to top, #00000088 20%, transparent 40%);
+          }
+          & span{
+            margin-left: 4px;
+            font-size: 18px;
+            line-height: 1.4;
+            font-weight: 400;
+          }
+        }
+      }
+    </style>
+    <script src="./swipe-animation.js" type="text/javascript" ></script>
+  </body>
+</html>
